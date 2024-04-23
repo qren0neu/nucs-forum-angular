@@ -1,0 +1,19 @@
+.layout-container {
+  display: flex;
+  direction: ltr;
+  height: 100vh;
+}
+
+.side-image {
+  width: 50%;
+  background: url('/assets/nucs_large.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.content {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
