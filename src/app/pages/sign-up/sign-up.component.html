@@ -1,0 +1,75 @@
+<app-ns-layout>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Sign Up</mat-card-title>
+      <mat-icon>person_add</mat-icon>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <mat-grid-list cols="2" rowHeight="72px">
+          <mat-grid-tile>
+            <mat-form-field appearance="fill">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="first" placeholder="John">
+              <mat-error *ngIf="signUpForm.get('first')?.errors && signUpForm.get('first')!.errors!['required']">
+                required
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field appearance="fill">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="last" placeholder="Doe">
+              <mat-error *ngIf="signUpForm.get('last')?.errors && signUpForm.get('last')!.errors!['required']">
+                required
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <!-- Additional fields -->
+          <mat-grid-tile colspan="2">
+            <mat-form-field appearance="fill">
+              <mat-label>Email Address</mat-label>
+              <input matInput formControlName="email">
+              <mat-error *ngIf="signUpForm.get('email')?.errors && signUpForm.get('email')!.errors!['required']">
+                Email is required
+              </mat-error>
+              <mat-error *ngIf="signUpForm.get('email')?.errors && signUpForm.get('email')!.errors!['email']">
+                Invalid
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+              <button mat-icon-button matSuffix (click)="hide = !hide" type="button">
+                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+              <mat-error *ngIf="signUpForm.get('password')?.errors && signUpForm.get('password')!.errors!['required']">
+                required
+              </mat-error>
+              <mat-error *ngIf="signUpForm.get('password')?.errors && signUpForm.get('password')!.errors!['minLength']">
+                too short
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field appearance="fill">
+              <mat-label>Confirm Password</mat-label>
+              <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confPassword">
+              <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" type="button">
+                <mat-icon>{{ hideConfirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+              <mat-error
+                *ngIf="signUpForm.get('confPassword')?.errors && signUpForm.get('confPassword')!.errors!['required']">
+                required
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+        </mat-grid-list>
+        <button mat-raised-button color="primary" type="submit">Sign Up</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+</app-ns-layout>

@@ -1,0 +1,37 @@
+<app-ns-layout>
+  <mat-card>
+    <mat-card-header>
+      <mat-icon>lock_outline</mat-icon>
+      <mat-card-title>Sign In</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Email Address</mat-label>
+          <input matInput formControlName="email" required autocomplete="email">
+          <mat-error *ngIf="signInForm.controls['email'].touched && signInForm.controls['email'].invalid">
+            {{ getErrorMessage(signInForm.controls['email']) }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+          <button mat-icon-button matSuffix (click)="hide = !hide" type="button">
+            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="signInForm.controls['password'].touched && signInForm.controls['password'].invalid">
+            {{ getErrorMessage(signInForm.controls['password']) }}
+          </mat-error>
+        </mat-form-field>
+        <mat-error *ngIf="authError">{{ authError }}</mat-error>
+        <button mat-raised-button color="primary" type="submit">Sign In</button>
+        <button mat-button (click)="navigateBack()">Back to Main</button>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button routerLink="/post/explore">Visit as a Guest</a>
+      <a mat-button routerLink="/register">Don't have an account? Sign Up</a>
+    </mat-card-actions>
+  </mat-card>
+
+</app-ns-layout>

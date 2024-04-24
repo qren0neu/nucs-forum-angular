@@ -10,6 +10,6 @@ export class HomeComponent {
   constructor(private router: Router) {}
 
   navigateToLogin(): void {
-    this.router.navigate(['/account/login']);
+    this.router.navigate(['/login']);
   }
 }
