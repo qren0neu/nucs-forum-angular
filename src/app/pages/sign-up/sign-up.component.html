@@ -6,7 +6,7 @@
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-        <mat-grid-list cols="2" rowHeight="72px">
+        <mat-grid-list cols="2" rowHeight="72px" style="margin-top: 24px">
           <mat-grid-tile>
             <mat-form-field appearance="fill">
               <mat-label>First Name</mat-label>
@@ -68,6 +68,8 @@
           </mat-grid-tile>
         </mat-grid-list>
         <button mat-raised-button color="primary" type="submit">Sign Up</button>
+        <a mat-button href="/login" class="custom-link">Already have account? Login</a>
+
       </form>
     </mat-card-content>
   </mat-card>

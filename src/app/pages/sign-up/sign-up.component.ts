@@ -6,7 +6,7 @@ import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {MatIcon} from "@angular/material/icon";
 import {NgIf} from "@angular/common";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MatButton, MatIconButton} from "@angular/material/button";
+import {MatAnchor, MatButton, MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {AuthService} from "../../services/auth.service";
 import {Router} from "@angular/router";
@@ -36,7 +36,8 @@ import {Router} from "@angular/router";
     MatInput,
     MatIconButton,
     MatIconButton,
-    MatCardContent
+    MatCardContent,
+    MatAnchor
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'

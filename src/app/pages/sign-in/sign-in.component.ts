@@ -9,6 +9,7 @@ import {NgIf} from "@angular/common";
 import {MatAnchor, MatButton, MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {NsLayoutComponent} from "../../ns-layout/ns-layout.component";
+import {MatGridList} from "@angular/material/grid-list";
 
 @Component({
   selector: 'app-sign-in',
@@ -34,7 +35,8 @@ import {NsLayoutComponent} from "../../ns-layout/ns-layout.component";
     MatButton,
     MatInput,
     MatInput,
-    NsLayoutComponent
+    NsLayoutComponent,
+    MatGridList
   ],
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
@@ -58,7 +60,13 @@ export class SignInComponent {
   onSubmit(): void {
     if (this.signInForm.valid) {
       this.authService.login(this.signInForm.value).subscribe({
-        next: () => this.router.navigate(['/post/explore']),
+        next: (val) => {
+          if (val) {
+            this.router.navigate(['/post/explore'])
+          } else {
+            this.authError = 'Your email or password is not correct'
+          }
+        },
         error: (err) => this.authError = 'Your email or password is not correct'
       });
     }

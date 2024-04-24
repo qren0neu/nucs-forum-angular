@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { StorageService } from './storage.service';  // Import StorageService
+import { StorageService } from './storage.service';
+import axios from "axios";  // Import StorageService
 
 @Injectable({
   providedIn: 'root'
@@ -20,16 +21,43 @@ export class AuthService {
     }
   }
 
-  private validateCredentials(credentials: { email: string; username: string; password: string }): boolean {
-    return !!credentials.email && !!credentials.username && !!credentials.password;
+  private validateCredentials(credentials: { email: string; password: string }): boolean {
+    const hasValue = !!credentials.email && !!credentials.password;
+    if (hasValue) {
+      this.loginImpl(credentials.email, credentials.password);
+      return true; // Assuming you handle the response inside login and adjust based on success/failure
+    }
+    return false;
   }
 
-  login(credentials: { email: string; username: string; password: string }): Observable<boolean> {
+  private async loginImpl(email: string, password: string): Promise<void> {
+    const apiUrl = 'https://api.example.com/login'; // Replace with your actual API URL
+    try {
+      const response = await axios.post(apiUrl, {
+        email: email,
+        password: password
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any other headers as required
+        }
+      });
+      console.log('Login successful:', response.data);
+      // Handle success, possibly updating the state or redirecting the user
+    } catch (error) {
+      console.error('Error during login:', error);
+      // Handle error, possibly displaying a message to the user
+    }
+  }
+
+  login(credentials: { email: string; password: string }): Observable<boolean> {
     if (this.validateCredentials(credentials)) {
+      console.log('succ login');
       this.storageService.save('userCredentials', credentials);
       this.isAuthenticatedSubject.next(true);
       return of(true);
     }
+    console.log('fail login');
     return of(false);
   }
 

@@ -6,8 +6,8 @@
     width="64">
   <span>{{ title }}</span>
   <mat-list style="align-items: center; justify-content: center">
-    <button mat-icon-button (click)="navigate('/search')">
-      <mat-icon>search</mat-icon>
+    <button mat-icon-button (click)="navigate('/search')" *ngIf="authService.isAuthenticated() | async">
+      <mat-icon >search</mat-icon>
     </button>
     <button *ngIf="!(authService.isAuthenticated() | async)" mat-button (click)="navigate('/register')">Sign up</button>
     <button *ngIf="authService.isAuthenticated() | async" mat-button (click)="signOut()">Sign out</button>
