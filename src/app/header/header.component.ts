@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service'; // Assuming you have an AuthService
+import { AuthService } from '../services/auth.service';
+
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,7 @@ import { AuthService } from '../services/auth.service'; // Assuming you have an 
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  title = 'Your Header Title';
+  title = 'NUCS Forum';
   sections = [
     { title: 'Home', url: '/', needLogin: false },
     { title: 'Admin', url: '/admin', needLogin: true }
@@ -22,8 +23,10 @@ export class HeaderComponent {
   }
 
   signOut(): void {
-    // this.authService.signOut().subscribe(() => {
-    //   this.router.navigateByUrl('/account/login');
-    // });
+    this.authService.logout().subscribe(() => {
+      this.router.navigateByUrl('/login');
+    });
   }
+
+  // protected readonly async = async;
 }

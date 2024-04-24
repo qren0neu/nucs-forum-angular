@@ -9,13 +9,8 @@
     <button mat-icon-button (click)="navigate('/search')">
       <mat-icon>search</mat-icon>
     </button>
-    <button *ngIf="!authService.isAuthenticated()" mat-button (click)="navigate('/account/register')">Sign up</button>
-    <button *ngIf="authService.isAuthenticated()" mat-button (click)="signOut()">Sign out</button>
+    <button *ngIf="!(authService.isAuthenticated() | async)" mat-button (click)="navigate('/register')">Sign up</button>
+    <button *ngIf="authService.isAuthenticated() | async" mat-button (click)="signOut()">Sign out</button>
+
   </mat-list>
-<!--  <a *ngFor="let section of sections"-->
-<!--     mat-button-->
-<!--     (click)="navigate(section.url)"-->
-<!--     *ngIf="!section.needLogin || authService.isAuthenticated()">-->
-<!--    {{ section.title }}-->
-<!--  </a>-->
 </mat-toolbar>

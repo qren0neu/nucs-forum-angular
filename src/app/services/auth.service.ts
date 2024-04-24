@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { StorageService } from './storage.service';  // Import StorageService
 
 @Injectable({
   providedIn: 'root'
@@ -8,28 +9,37 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) {}
-
-  // Simulates the login by setting isAuthenticated to true
-  login(username: string, password: string): Observable<boolean> {
-    // Here, you would ideally call your backend API to validate credentials
-    this.isAuthenticatedSubject.next(true);
-    return of(true); // Simulating successful login
+  constructor(private http: HttpClient, private storageService: StorageService) {
+    this.checkStoredCredentials();
   }
 
-  loginForm(credentials: { email: string; password: string }): Observable<any> {
-    // Replace with your actual login API endpoint
-    return this.http.post('/api/login', credentials);
+  private checkStoredCredentials(): void {
+    const storedCredentials = this.storageService.load('userCredentials');
+    if (storedCredentials) {
+      this.isAuthenticatedSubject.next(this.validateCredentials(storedCredentials));
+    }
   }
 
-  // Checks the current authentication status
+  private validateCredentials(credentials: { email: string; username: string; password: string }): boolean {
+    return !!credentials.email && !!credentials.username && !!credentials.password;
+  }
+
+  login(credentials: { email: string; username: string; password: string }): Observable<boolean> {
+    if (this.validateCredentials(credentials)) {
+      this.storageService.save('userCredentials', credentials);
+      this.isAuthenticatedSubject.next(true);
+      return of(true);
+    }
+    return of(false);
+  }
+
+  logout(): Observable<boolean> {
+    this.storageService.remove('userCredentials');
+    this.isAuthenticatedSubject.next(false);
+    return of(true);
+  }
+
   isAuthenticated(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();
-  }
-
-  // Simulates the logout by setting isAuthenticated to false
-  logout(): Observable<boolean> {
-    this.isAuthenticatedSubject.next(false);
-    return of(true); // Simulating successful logout
   }
 }

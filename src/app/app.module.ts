@@ -9,6 +9,8 @@ import {HomeComponent} from "./home/home.component";
 import {MatCard} from "@angular/material/card";
 import {NsLayoutComponent} from "./ns-layout/ns-layout.component";
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatList,
     MatCard,
     NsLayoutComponent,
-    HttpClientModule
+    HttpClientModule,
+    CommonModule
   ],
   providers: [HttpClientModule],
   exports: [
