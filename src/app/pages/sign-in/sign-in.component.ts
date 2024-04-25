@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
@@ -41,7 +41,7 @@ import {MatGridList} from "@angular/material/grid-list";
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.scss']
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
   signInForm: FormGroup;
   hide = true;
   authError: string | null = null;
@@ -55,6 +55,20 @@ export class SignInComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
+  }
+
+  ngOnInit(): void {
+    // Redirect if already signed in
+    this.authService.isAuthenticated().subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.redirectIfSessionExists();
+      }
+    });
+  }
+
+  private redirectIfSessionExists(): void {
+    // Add additional checks or a specific route if necessary
+    this.router.navigate(['/post-explore']);
   }
 
   onSubmit(): void {

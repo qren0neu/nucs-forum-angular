@@ -42,7 +42,7 @@ import {Router} from "@angular/router";
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
   hide = true;
   hideConfirmPassword = true;
@@ -65,13 +65,20 @@ export class SignUpComponent {
     });
   }
 
-  // ngOnInit(): void {
-  //   this.signUpForm = this.fb.group({
-  //     first: ['', Validators.required],
-  //     last: ['', Validators.required],
-  //     // Define other fields similarly...
-  //   });
-  // }
+
+  ngOnInit(): void {
+    // Redirect if already signed in
+    this.authService.isAuthenticated().subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.redirectIfSessionExists();
+      }
+    });
+  }
+
+  private redirectIfSessionExists(): void {
+    // Add additional checks or a specific route if necessary
+    this.router.navigate(['/post-explore']);
+  }
 
   onSubmit(): void {
     if (this.signUpForm.valid) {
@@ -82,7 +89,10 @@ export class SignUpComponent {
           if (data.hasError) {
             this.authError = 'sign up failed';
           } else {
-            this.authService.login({email: this.signUpForm.value.email, password: this.signUpForm.value.password}).subscribe({
+            this.authService.login({
+              email: this.signUpForm.value.email,
+              password: this.signUpForm.value.password
+            }).subscribe({
               next: (val) => {
                 if (val) {
                   this.router.navigate(['/post-explore'])
