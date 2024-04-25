@@ -3,19 +3,22 @@ import {NgModule} from "@angular/core";
 import {MatToolbar} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
 import {NgIf, NgOptimizedImage} from "@angular/common";
-import {MatButton, MatIconButton} from "@angular/material/button";
+import {MatButton, MatFabButton, MatIconButton} from "@angular/material/button";
 import {MatList} from "@angular/material/list";
 import {HomeComponent} from "./home/home.component";
-import {MatCard} from "@angular/material/card";
+import {MatCard, MatCardContent} from "@angular/material/card";
 import {NsLayoutComponent} from "./ns-layout/ns-layout.component";
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import {ExplorePageComponent} from "./pages/explore-page/explore-page.component";
+import {MatChip, MatChipListbox} from "@angular/material/chips";
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     HomeComponent,
+    ExplorePageComponent
   ],
   imports: [
     MatToolbar,
@@ -28,7 +31,11 @@ import { CommonModule } from '@angular/common';
     MatCard,
     NsLayoutComponent,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    MatCardContent,
+    MatChip,
+    MatFabButton,
+    MatChipListbox
   ],
   providers: [HttpClientModule],
   exports: [

@@ -82,4 +82,18 @@ export class AuthService {
   isAuthenticated(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();
   }
+
+  public guestLogin(): Observable<boolean> {
+    const guestCredentials = { email: 'guest', password: 'guest' };
+    this.storageService.save('userCredentials', guestCredentials);
+    this.isAuthenticatedSubject.next(true);
+    return of(true);
+  }
+
+  public hasSession(): Observable<boolean> {
+    const isAuthenticated = this.isAuthenticatedSubject.value;
+    const credentials = this.storageService.load('userCredentials');
+    const isNotGuest = credentials && credentials.email !== 'guest';
+    return of(isAuthenticated && isNotGuest);
+  }
 }

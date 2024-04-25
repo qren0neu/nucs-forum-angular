@@ -62,7 +62,7 @@ export class SignInComponent {
       this.authService.login(this.signInForm.value).subscribe({
         next: (val) => {
           if (val) {
-            this.router.navigate(['/post/explore'])
+            this.router.navigate(['/post-explore'])
           } else {
             this.authError = 'Your email or password is not correct'
           }

@@ -1,0 +1,21 @@
+<!-- explore-page.component.html -->
+<div class="explore-page">
+  <div class="post-grid">
+    <div *ngFor="let post of posts" class="post-item">
+      <mat-card (click)="navigateToPost(post.uuid)">
+        <mat-card-content>
+          <h2>{{ post.title }}</h2>
+          <p>By: {{ post.author }}</p>
+          <p>Created at: {{ post.date | date }}</p>
+          <p>{{ ((post.content.length / 200) <= 1) ? 1 : (post.content.length / 800).toFixed(0) }} minute(s) read</p>
+          <mat-chip-listbox *ngIf="post.tags">
+            <mat-chip *ngFor="let tag of post.tags">{{ tag }}</mat-chip>
+          </mat-chip-listbox>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <button mat-fab color="primary" class="new-post-fab" (click)="navigateToNewPost()" *ngIf="hasSession() | async">
+    <mat-icon>edit</mat-icon>
+  </button>
+</div>

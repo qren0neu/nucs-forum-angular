@@ -85,7 +85,7 @@ export class SignUpComponent {
             this.authService.login({email: this.signUpForm.value.email, password: this.signUpForm.value.password}).subscribe({
               next: (val) => {
                 if (val) {
-                  this.router.navigate(['/post/explore'])
+                  this.router.navigate(['/post-explore'])
                 } else {
                   this.authError = 'Your email or password is not correct'
                 }
