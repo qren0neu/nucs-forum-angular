@@ -90,8 +90,16 @@ export class AuthService {
   isAdmin(): Observable<boolean> {
     const isAuthenticated = this.isAuthenticatedSubject.value;
     const credentials = this.storageService.load('userCredentials');
-    const isAdmin = credentials && credentials.email === 'admin';
+    const isAdmin = credentials && credentials.username === 'admin';
     return of(isAuthenticated && isAdmin);
+  }
+
+  isUser(): Observable<boolean> {
+    const isAuthenticated = this.isAuthenticatedSubject.value;
+    const credentials = this.storageService.load('userCredentials');
+    const isNotGuest = credentials && credentials.email !== 'guest';
+    const isAdmin = credentials && credentials.username === 'admin';
+    return of(isAuthenticated && isNotGuest && !isAdmin);
   }
 
   public guestLogin(): Observable<boolean> {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import {map, Observable} from "rxjs";
+import {combineLatest, map, Observable} from "rxjs";
 
 
 @Component({
@@ -13,10 +13,11 @@ export class HeaderComponent {
   title = 'NUCS Forum';
   sections = [
     {title: 'Home', url: '/', requirement: 'user'},
-    {title: 'Dashboard', url: '/admin', requirement: 'user'},
+    {title: 'Dashboard', url: '/dashboard', requirement: 'user'},
     {title: 'Admin', url: '/admin', requirement: 'admin'},
-    {title: 'My', url: '/admin', requirement: 'user'},
-    {title: 'All', url: '/admin', requirement: 'admin'},
+    {title: 'AdminDashboard', url: '/dashboard', requirement: 'admin'},
+    {title: 'My', url: '/my', requirement: 'user'},
+    {title: 'All', url: '/all', requirement: 'admin'},
   ];
 
   constructor(public authService: AuthService, private router: Router) {
@@ -38,5 +39,15 @@ export class HeaderComponent {
     return this.authService.isAuthenticated().pipe(
       map(isAuthenticated => !pathsToExclude.includes(path) && isAuthenticated)
     );
+  }
+
+  // Determine if the section should be shown based on user role
+  shouldDisplaySection(section: any): Observable<boolean> {
+    if (section.requirement === 'admin') {
+      return this.authService.isAdmin();
+    } else if (section.requirement === 'user') {
+      return this.authService.isUser();
+    }
+    return this.authService.isAuthenticated(); // Fallback to basic authentication check
   }
 }

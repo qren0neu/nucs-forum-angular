@@ -16,8 +16,13 @@
 <!-- Secondary Toolbar for Sections -->
 <mat-toolbar *ngIf="showSections() | async" color="accent" style="justify-content: center">
   <mat-list style="display: flex; flex-direction: row; padding: 0; margin: 0; width: 100%;">
-    <button *ngFor="let section of sections" mat-button (click)="navigate(section.url)">
-      {{ section.title }}
-    </button>
+    <ng-container *ngFor="let section of sections">
+      <button *ngIf="shouldDisplaySection(section) | async" mat-button (click)="navigate(section.url)">
+        {{ section.title }}
+      </button>
+    </ng-container>
   </mat-list>
 </mat-toolbar>
+
+
+
