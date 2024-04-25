@@ -77,6 +77,23 @@ export class SignUpComponent {
     if (this.signUpForm.valid) {
       console.log(this.signUpForm.value);
       // Implement your API call logic here
+      this.authService.handleCreateAccountWithCredentials(this.signUpForm.value)
+        .then(data => {
+          if (data.hasError) {
+            this.authError = 'sign up failed';
+          } else {
+            this.authService.login({email: this.signUpForm.value.email, password: this.signUpForm.value.password}).subscribe({
+              next: (val) => {
+                if (val) {
+                  this.router.navigate(['/post/explore'])
+                } else {
+                  this.authError = 'Your email or password is not correct'
+                }
+              },
+              error: (err) => this.authError = 'sign up failed'
+            });
+          }
+        })
     }
   }
 }

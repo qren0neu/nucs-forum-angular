@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { StorageService } from './storage.service';
-import axios from "axios";  // Import StorageService
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable, of} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {StorageService} from './storage.service';
+import axios from "axios";
+import {Constants} from "../constant";  // Import StorageService
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +31,19 @@ export class AuthService {
     return false;
   }
 
+  public async handleCreateAccountWithCredentials(values: any): Promise<any> {
+    const email = values.email;
+    try {
+      const resp = await axios.post(`${Constants.API_BASE}/user/${email}`, values);
+      return resp.data;
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
+  };
+
   private async loginImpl(email: string, password: string): Promise<void> {
-    const apiUrl = 'https://api.example.com/login'; // Replace with your actual API URL
+    const apiUrl = `${Constants.API_BASE}/account/signin`; // Replace with your actual API URL
     try {
       const response = await axios.post(apiUrl, {
         email: email,
