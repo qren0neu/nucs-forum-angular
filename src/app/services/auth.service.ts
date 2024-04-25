@@ -15,20 +15,23 @@ export class AuthService {
     this.checkStoredCredentials();
   }
 
-  private checkStoredCredentials(): void {
+  private async checkStoredCredentials(): Promise<void> {
     const storedCredentials = this.storageService.load('userCredentials');
     if (storedCredentials) {
-      this.isAuthenticatedSubject.next(this.validateCredentials(storedCredentials));
+      this.isAuthenticatedSubject.next(await this.validateCredentials(storedCredentials));
     }
   }
 
-  private validateCredentials(credentials: { email: string; password: string }): boolean {
+  private async validateCredentials(credentials: { email: string; password: string }): Promise<any> {
     const hasValue = !!credentials.email && !!credentials.password;
     if (hasValue) {
-      this.loginImpl(credentials.email, credentials.password);
-      return true; // Assuming you handle the response inside login and adjust based on success/failure
+      const loginUser = await this.loginImpl(credentials.email, credentials.password);
+      if (loginUser && loginUser.username) {
+        return loginUser;
+      }
+      return null;
     }
-    return false;
+    return null;
   }
 
   public async handleCreateAccountWithCredentials(values: any): Promise<any> {
@@ -42,7 +45,7 @@ export class AuthService {
     }
   };
 
-  private async loginImpl(email: string, password: string): Promise<void> {
+  private async loginImpl(email: string, password: string): Promise<any> {
     const apiUrl = `${Constants.API_BASE}/account/signin`; // Replace with your actual API URL
     try {
       const response = await axios.post(apiUrl, {
@@ -54,18 +57,19 @@ export class AuthService {
           // Add any other headers as required
         }
       });
-      console.log('Login successful:', response.data);
-      // Handle success, possibly updating the state or redirecting the user
+      console.log('Login successful: ...?', response.data);
+      return response.data;
     } catch (error) {
       console.error('Error during login:', error);
       // Handle error, possibly displaying a message to the user
     }
   }
 
-  login(credentials: { email: string; password: string }): Observable<boolean> {
-    if (this.validateCredentials(credentials)) {
+  async login(credentials: { email: string; password: string }): Promise<Observable<boolean>> {
+    const loginUser = await this.validateCredentials(credentials);
+    if (loginUser) {
       console.log('succ login');
-      this.storageService.save('userCredentials', credentials);
+      this.storageService.save('userCredentials', {...credentials, username: loginUser.username});
       this.isAuthenticatedSubject.next(true);
       return of(true);
     }
@@ -81,6 +85,13 @@ export class AuthService {
 
   isAuthenticated(): Observable<boolean> {
     return this.isAuthenticatedSubject.asObservable();
+  }
+
+  isAdmin(): Observable<boolean> {
+    const isAuthenticated = this.isAuthenticatedSubject.value;
+    const credentials = this.storageService.load('userCredentials');
+    const isAdmin = credentials && credentials.email === 'admin';
+    return of(isAuthenticated && isAdmin);
   }
 
   public guestLogin(): Observable<boolean> {

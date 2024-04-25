@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import {map, Observable} from "rxjs";
 
 
 @Component({
@@ -11,12 +12,15 @@ import { AuthService } from '../services/auth.service';
 export class HeaderComponent {
   title = 'NUCS Forum';
   sections = [
-    { title: 'Home', url: '/', needLogin: false },
-    { title: 'Admin', url: '/admin', needLogin: true }
-    // Add more sections as needed
+    {title: 'Home', url: '/', requirement: 'user'},
+    {title: 'Dashboard', url: '/admin', requirement: 'user'},
+    {title: 'Admin', url: '/admin', requirement: 'admin'},
+    {title: 'My', url: '/admin', requirement: 'user'},
+    {title: 'All', url: '/admin', requirement: 'admin'},
   ];
 
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(public authService: AuthService, private router: Router) {
+  }
 
   navigate(url: string): void {
     this.router.navigateByUrl(url);
@@ -28,5 +32,11 @@ export class HeaderComponent {
     });
   }
 
-  // protected readonly async = async;
+  showSections(): Observable<boolean> {
+    const path = this.router.url;
+    const pathsToExclude = ['/', '/register', '/login'];
+    return this.authService.isAuthenticated().pipe(
+      map(isAuthenticated => !pathsToExclude.includes(path) && isAuthenticated)
+    );
+  }
 }

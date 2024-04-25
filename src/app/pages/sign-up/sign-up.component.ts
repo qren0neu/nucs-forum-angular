@@ -92,16 +92,18 @@ export class SignUpComponent implements OnInit {
             this.authService.login({
               email: this.signUpForm.value.email,
               password: this.signUpForm.value.password
-            }).subscribe({
-              next: (val) => {
-                if (val) {
-                  this.router.navigate(['/post-explore'])
-                } else {
-                  this.authError = 'Your email or password is not correct'
-                }
-              },
-              error: (err) => this.authError = 'sign up failed'
-            });
+            }).then(obs => {
+              obs.subscribe({
+                next: (val) => {
+                  if (val) {
+                    this.router.navigate(['/post-explore'])
+                  } else {
+                    this.authError = 'Your email or password is not correct'
+                  }
+                },
+                error: (err) => this.authError = 'sign up failed'
+              });
+            })
           }
         })
     }

@@ -73,16 +73,19 @@ export class SignInComponent implements OnInit {
 
   onSubmit(): void {
     if (this.signInForm.valid) {
-      this.authService.login(this.signInForm.value).subscribe({
-        next: (val) => {
-          if (val) {
-            this.router.navigate(['/post-explore'])
-          } else {
-            this.authError = 'Your email or password is not correct'
-          }
-        },
-        error: (err) => this.authError = 'Your email or password is not correct'
-      });
+      this.authService.login(this.signInForm.value)
+        .then(obs => {
+          obs.subscribe({
+            next: (val) => {
+              if (val) {
+                this.router.navigate(['/post-explore'])
+              } else {
+                this.authError = 'Your email or password is not correct'
+              }
+            },
+            error: (err) => this.authError = 'Your email or password is not correct'
+          });
+        })
     }
   }
 
