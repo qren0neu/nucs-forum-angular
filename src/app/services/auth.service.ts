@@ -115,4 +115,12 @@ export class AuthService {
     const isNotGuest = credentials && credentials.email !== 'guest';
     return of(isAuthenticated && isNotGuest);
   }
+
+  public getStoredCredentials(): { email: string, password: string, username: string } | null {
+    const credentials = this.storageService.load('userCredentials');
+    if (credentials && credentials.email && credentials.password) {
+      return { email: credentials.email, password: credentials.password, username: credentials.username };
+    }
+    return null;
+  }
 }

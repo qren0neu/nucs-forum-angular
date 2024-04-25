@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ content.title }}</mat-card-title>
+    <mat-card-subtitle style="color: black">By {{ content.author }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <markdown [data]="markdown"></markdown>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="likePost(content.uuid)"
+            [color]="liked ? 'warn' : 'primary'">{{liked ? 'Liked' : 'Like'}}</button>
+    <button mat-button (click)="savePost(content.uuid)"
+            [color]="saved ? 'accent' : 'primary'">{{saved ? 'Saved' : 'Save'}}</button>
+    <button mat-button (click)="deletePost(content.uuid)">Delete</button>
+  </mat-card-actions>
+</mat-card>
+<ng-container *ngFor="let comment of comments">
+  <mat-card>
+    <mat-card-content>
+      {{ comment.from }} said: {{ comment.content }}
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+<mat-form-field appearance="fill" class="black-border-input">
+  <input matInput [(ngModel)]="myComment" placeholder="Type a comment...">
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="postComment(content.uuid)">Post Comment</button>

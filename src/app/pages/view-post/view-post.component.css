@@ -1,0 +1,98 @@
+mat-card {
+  background-color: white;
+  display: block; /* Ensure the :host fills the container */
+  width: 100%; /* Take full width to cover any parent styles */
+}
+
+/* General Page Layout and Styling */
+.viewer-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  padding: 20px;
+  align-items: center;
+}
+
+/* Styling for the Markdown Display Area */
+.markdown-content {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Styling for a Clean and Modern Look */
+.mat-card {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
+
+.mat-card-header {
+  align-items: center;
+}
+
+.mat-card-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.mat-card-subtitle {
+  font-size: 16px;
+  color: #666;
+}
+
+/* Button Styling for Actions */
+.action-buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+
+  & button {
+    padding: 10px 20px;
+  }
+}
+
+/* Comment Section Styling */
+.comments {
+  width: 100%;
+  max-width: 800px;
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #eee;
+  padding: 10px;
+}
+
+/* Input Field for Comments */
+.comment-input {
+  display: flex;
+  margin-top: 20px;
+
+  & input {
+    flex: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  & button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
+
+

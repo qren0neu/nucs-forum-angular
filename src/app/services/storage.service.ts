@@ -14,6 +14,7 @@ export class StorageService {
   }
 
   load(key: string): any {
+    console.log('loading...', isPlatformBrowser(this.platformId))
     if (isPlatformBrowser(this.platformId)) {
       const data = localStorage.getItem(key);
       return data ? JSON.parse(data) : null;

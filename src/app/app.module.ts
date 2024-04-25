@@ -12,13 +12,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import {ExplorePageComponent} from "./pages/explore-page/explore-page.component";
 import {MatChip, MatChipListbox} from "@angular/material/chips";
+import {MarkdownModule} from "ngx-markdown";
+import {ViewPostComponent} from "./pages/view-post/view-post.component";
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     HomeComponent,
-    ExplorePageComponent
+    ExplorePageComponent,
   ],
   imports: [
     MatToolbar,
@@ -35,7 +37,8 @@ import {MatChip, MatChipListbox} from "@angular/material/chips";
     MatCardContent,
     MatChip,
     MatFabButton,
-    MatChipListbox
+    MatChipListbox,
+    MarkdownModule.forRoot(),
   ],
   providers: [HttpClientModule],
   exports: [
