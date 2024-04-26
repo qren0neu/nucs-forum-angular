@@ -1,0 +1,16 @@
+.custom-toolbar {
+  background-color: #f0f0f0; /* light grey background */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.flex-list {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.flex-list button {
+  margin: 0 8px; /* add some margin between buttons */
+}

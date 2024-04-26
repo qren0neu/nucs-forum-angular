@@ -5,7 +5,7 @@
     height="64"
     width="64">
   <span>{{ title }}</span>
-  <mat-list style="align-items: center; justify-content: center">
+  <mat-list class="flex-list" style="align-items: center; justify-content: center">
     <button mat-icon-button (click)="navigate('/search')" *ngIf="authService.isAuthenticated() | async">
       <mat-icon>search</mat-icon>
     </button>
@@ -14,7 +14,7 @@
   </mat-list>
 </mat-toolbar>
 <!-- Secondary Toolbar for Sections -->
-<mat-toolbar *ngIf="showSections() | async" color="accent" style="justify-content: center">
+<mat-toolbar  class="custom-toolbar" *ngIf="showSections() | async" color="accent" style="justify-content: center">
   <mat-list style="display: flex; flex-direction: row; padding: 0; margin: 0; width: 100%;">
     <ng-container *ngFor="let section of sections">
       <button *ngIf="shouldDisplaySection(section) | async" mat-button (click)="navigate(section.url)">

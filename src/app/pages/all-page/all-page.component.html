@@ -1,0 +1,22 @@
+<div *ngIf="user && user.username === 'admin'">
+  <table>
+    <tr>
+      <th>First</th>
+      <th>Last</th>
+      <th>Email</th>
+      <th>School</th>
+      <th>Campus</th>
+      <th>Company</th>
+      <th>Action</th>
+    </tr>
+    <tr *ngFor="let one of all; let i = index">
+      <td>{{ one.first }}</td>
+      <td>{{ one.last }}</td>
+      <td>{{ one.email }}</td>
+      <td>{{ one.school ? one.school : 'N/A' }}</td>
+      <td>{{ one.campus ? one.campus : 'N/A' }}</td>
+      <td>{{ one.company ? one.company : 'N/A' }}</td>
+      <td><button (click)="editUser(one.username)">Edit</button></td>
+    </tr>
+  </table>
+</div>

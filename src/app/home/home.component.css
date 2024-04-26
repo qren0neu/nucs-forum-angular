@@ -4,7 +4,7 @@
   justify-content: center;
   height: 100%;
   width: 100%;
-  background-color: dimgrey;
+  background-color: #ffffff; /* White background for the entire page */
 }
 
 .content-card {
@@ -12,8 +12,14 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: whitesmoke;
+  background-color: #f0f0f0; /* Slightly off-white for the card to distinguish it from the background */
   padding: 32px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow for depth */
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.content-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* More pronounced shadow on hover */
 }
 
 .spacer {

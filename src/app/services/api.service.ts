@@ -92,4 +92,8 @@ export class ApiService {
   getPosts(filter: string): Observable<any[]> {
     return this.http.get<any[]>(`${Constants.API_BASE}/post/search?filter=${filter}`, { headers: this.makeHeader() });
   }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get(`${Constants.API_BASE}/user/all`);
+  }
 }
