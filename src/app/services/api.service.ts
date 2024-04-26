@@ -96,4 +96,12 @@ export class ApiService {
   getAllUsers(): Observable<any> {
     return this.http.get(`${Constants.API_BASE}/user/all`, { headers: this.makeHeader() });
   }
+
+  getUser(username: string): Observable<any> {
+    return this.http.get(`${Constants.API_BASE}/user/${username}`, { headers: this.makeHeader() });
+  }
+
+  updateUser(username: string, userData: any): Observable<any> {
+    return this.http.put(`${Constants.API_BASE}/user/${username}`, userData, { headers: this.makeHeader() });
+  }
 }

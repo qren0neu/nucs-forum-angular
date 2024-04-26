@@ -7,6 +7,7 @@ import {ExplorePageComponent} from "./pages/explore-page/explore-page.component"
 import {ViewPostComponent} from "./pages/view-post/view-post.component";
 import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 import {AllPageComponent} from "./pages/all-page/all-page.component";
+import {AdminEditComponent} from "./pages/admin-edit/admin-edit.component";
 
 export const routes: Routes = [
   { path: 'hello-world', component: HelloWorldComponent },
@@ -19,4 +20,5 @@ export const routes: Routes = [
   { path: 'post/:id', component: ViewPostComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'all', component: AllPageComponent },
+  { path: 'adminEdit', component: AdminEditComponent },
 ];

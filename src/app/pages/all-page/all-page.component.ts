@@ -11,6 +11,7 @@ import {
   MatHeaderRowDef, MatRow, MatRowDef,
   MatTable
 } from "@angular/material/table";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-all-page',
@@ -37,7 +38,8 @@ import {
     MatHeaderCellDef,
     MatHeaderCellDef,
     MatRow,
-    AsyncPipe
+    AsyncPipe,
+    MatButton
   ],
   templateUrl: './all-page.component.html',
   styleUrl: './all-page.component.css'
@@ -69,7 +71,7 @@ export class AllPageComponent implements OnInit {
   }
 
   editUser(username: string) {
-    window.location.assign(`/account/adminEdit?username=${username}`);
+    window.location.assign(`/adminEdit?username=${username}`);
   }
 
   isAdmin() {

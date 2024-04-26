@@ -1,0 +1,70 @@
+<div *ngIf="isAdmin() | async">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <!-- First Name -->
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="first">
+      <mat-error *ngIf="form.get('first')!['errors'] && form.get('first')!['errors']!['required']">
+        First name is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Last Name -->
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="last">
+      <mat-error *ngIf="form.get('last')!['errors'] && form.get('last')!['errors']!['required']">
+        Last name is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Email Address -->
+    <mat-form-field appearance="fill">
+      <mat-label>Email Address</mat-label>
+      <input matInput formControlName="email" type="email">
+      <mat-error *ngIf="form.get('email')!['errors'] && form.get('email')!['errors']!['required']">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="form.get('email')!['errors'] && form.get('email')!['errors']!['email']">
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+
+    <!-- School Selector -->
+    <mat-form-field appearance="fill">
+      <mat-label>School</mat-label>
+      <mat-select formControlName="school">
+        <mat-option *ngFor="let school of schools" [value]="school">
+          {{ school }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Campus Selector -->
+    <mat-form-field appearance="fill">
+      <mat-label>Campus</mat-label>
+      <mat-select formControlName="campus">
+        <mat-option *ngFor="let campus of campuses" [value]="campus">
+          {{ campus }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Company -->
+    <mat-form-field appearance="fill">
+      <mat-label>Company</mat-label>
+      <input matInput formControlName="company">
+      <mat-error *ngIf="form.get('company')!['errors'] && form.get('company')!['errors']!['required']">
+        Company is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Form Actions -->
+    <div>
+      <button mat-raised-button color="primary" type="submit" [disabled]="waiting || !form.valid">
+        Update
+      </button>
+      <button mat-button type="button">Reset Password</button>
+    </div>
+  </form>
+</div>
