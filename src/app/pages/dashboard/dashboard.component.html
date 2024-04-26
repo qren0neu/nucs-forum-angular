@@ -1,0 +1,7 @@
+<div class="grid" style="padding: 16px; row-gap: 8px; column-gap: 8px; display: grid;">
+  <app-dashboard-card *ngIf="posts" [title]="'Num of Posts'" [value]="posts.length"></app-dashboard-card>
+  <app-dashboard-card *ngIf="views" [title]="'Posts Viewed'" [value]="views.count"></app-dashboard-card>
+  <app-dashboard-card *ngIf="likes" [title]="'Posts Liked'" [value]="likes.count"></app-dashboard-card>
+  <app-dashboard-card *ngIf="saves" [title]="'Posts Saved'" [value]="saves.count"></app-dashboard-card>
+  <app-dashboard-card *ngIf="follows" [title]="'Followers'" [value]="follows.length"></app-dashboard-card>
+</div>

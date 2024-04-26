@@ -36,6 +36,18 @@ export class ApiService {
     return this.http.post(`${Constants.API_BASE}/like/${id}`, {}, {headers: this.makeHeader()});
   }
 
+  getLike(id: string): Observable<any> {
+    return this.http.get(`${Constants.API_BASE}/like/${id}`, {headers: this.makeHeader()});
+  }
+
+  getSave(id: string): Observable<any> {
+    return this.http.get(`${Constants.API_BASE}/save/${id}`, {headers: this.makeHeader()});
+  }
+
+  viewPost(id: string): Observable<any> {
+    return this.http.post(`${Constants.API_BASE}/view/${id}`, {headers: this.makeHeader()});
+  }
+
   savePost(id: string): Observable<any> {
     return this.http.post(`${Constants.API_BASE}/save/${id}`, {}, {headers: this.makeHeader()});
   }
@@ -50,5 +62,34 @@ export class ApiService {
 
   deletePost(id: string): Observable<any> {
     return this.http.delete(`${Constants.API_BASE}/post/${id}`, {headers: this.makeHeader()});
+  }
+
+  // Fetch the number of follows
+  getFollows(): Observable<any> {
+    return this.http.get<any>(`${Constants.API_BASE}/follow/mine?target=to`, { headers: this.makeHeader() });
+  }
+
+  getMyFollows(): Observable<any> {
+    return this.http.get<any>(`${Constants.API_BASE}/follow/mine`, { headers: this.makeHeader() });
+  }
+
+  // Fetch the number of views
+  getViews(): Observable<any> {
+    return this.http.get<any>(`${Constants.API_BASE}/view/mine`, { headers: this.makeHeader() });
+  }
+
+  // Fetch the number of saves
+  getSaves(): Observable<any> {
+    return this.http.get<any>(`${Constants.API_BASE}/save/mine`, { headers: this.makeHeader() });
+  }
+
+  // Fetch the number of likes
+  getLikes(): Observable<any> {
+    return this.http.get<any>(`${Constants.API_BASE}/like/mine`, { headers: this.makeHeader() });
+  }
+
+  // Fetch posts by the current user
+  getPosts(filter: string): Observable<any[]> {
+    return this.http.get<any[]>(`${Constants.API_BASE}/post/search?filter=${filter}`, { headers: this.makeHeader() });
   }
 }

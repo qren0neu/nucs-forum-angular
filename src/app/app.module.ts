@@ -14,6 +14,7 @@ import {ExplorePageComponent} from "./pages/explore-page/explore-page.component"
 import {MatChip, MatChipListbox} from "@angular/material/chips";
 import {MarkdownModule} from "ngx-markdown";
 import {ViewPostComponent} from "./pages/view-post/view-post.component";
+import {DashboardCardComponent} from "./dashboard-card/dashboard-card.component";
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import {ViewPostComponent} from "./pages/view-post/view-post.component";
     HeaderComponent,
     HomeComponent,
     ExplorePageComponent,
+    DashboardCardComponent
   ],
   imports: [
     MatToolbar,
@@ -42,7 +44,8 @@ import {ViewPostComponent} from "./pages/view-post/view-post.component";
   ],
   providers: [HttpClientModule],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    DashboardCardComponent
   ],
   bootstrap: [HomeComponent]
 })

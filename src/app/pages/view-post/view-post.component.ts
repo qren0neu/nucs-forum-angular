@@ -115,6 +115,13 @@ export class ViewPostComponent implements OnInit, AfterViewInit {
     this.apiService.getComments(id).subscribe(comments => {
       this.comments = comments;
     });
+    this.apiService.getLike(id).subscribe(data => {
+      this.liked = data && data.by
+    });
+    this.apiService.getSave(id).subscribe(data => {
+      this.saved = data && data.by
+    });
+    this.apiService.viewPost(id).subscribe(() => {});
   }
 
   deletePost(id: string): void {

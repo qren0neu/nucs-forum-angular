@@ -13,8 +13,9 @@ export class HeaderComponent {
   title = 'NUCS Forum';
   sections = [
     {title: 'Home', url: '/', requirement: 'user'},
+    {title: 'Explore', url: '/post-explore', requirement: 'user'},
     {title: 'Dashboard', url: '/dashboard', requirement: 'user'},
-    {title: 'Admin', url: '/admin', requirement: 'admin'},
+    {title: 'Explore', url: '/post-explore', requirement: 'admin'},
     {title: 'AdminDashboard', url: '/dashboard', requirement: 'admin'},
     {title: 'My', url: '/my', requirement: 'user'},
     {title: 'All', url: '/all', requirement: 'admin'},
