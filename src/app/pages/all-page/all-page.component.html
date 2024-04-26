@@ -1,22 +1,48 @@
-<div *ngIf="user && user.username === 'admin'">
-  <table>
-    <tr>
-      <th>First</th>
-      <th>Last</th>
-      <th>Email</th>
-      <th>School</th>
-      <th>Campus</th>
-      <th>Company</th>
-      <th>Action</th>
-    </tr>
-    <tr *ngFor="let one of all; let i = index">
-      <td>{{ one.first }}</td>
-      <td>{{ one.last }}</td>
-      <td>{{ one.email }}</td>
-      <td>{{ one.school ? one.school : 'N/A' }}</td>
-      <td>{{ one.campus ? one.campus : 'N/A' }}</td>
-      <td>{{ one.company ? one.company : 'N/A' }}</td>
-      <td><button (click)="editUser(one.username)">Edit</button></td>
-    </tr>
+<div *ngIf="isAdmin() | async">
+  <table mat-table [dataSource]="all" class="mat-elevation-z8">
+    <!-- Column Definitions -->
+    <ng-container matColumnDef="first">
+      <th mat-header-cell *matHeaderCellDef> First </th>
+      <td mat-cell *matCellDef="let element"> {{element.first}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="last">
+      <th mat-header-cell *matHeaderCellDef> Last </th>
+      <td mat-cell *matCellDef="let element"> {{element.last}} </td>
+    </ng-container>
+
+    <!-- Repeat for other columns -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="school">
+      <th mat-header-cell *matHeaderCellDef> School </th>
+      <td mat-cell *matCellDef="let element"> {{element.school ? element.school : 'N/A'}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="campus">
+      <th mat-header-cell *matHeaderCellDef> Campus </th>
+      <td mat-cell *matCellDef="let element"> {{element.campus ? element.campus : 'N/A'}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="company">
+      <th mat-header-cell *matHeaderCellDef> Company </th>
+      <td mat-cell *matCellDef="let element"> {{element.company ? element.company : 'N/A'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-button (click)="editUser(element)">Edit</button>
+      </td>
+    </ng-container>
+
+    <!-- Table Header and Row Definitions -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>

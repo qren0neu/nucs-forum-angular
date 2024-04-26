@@ -94,6 +94,6 @@ export class ApiService {
   }
 
   getAllUsers(): Observable<any> {
-    return this.http.get(`${Constants.API_BASE}/user/all`);
+    return this.http.get(`${Constants.API_BASE}/user/all`, { headers: this.makeHeader() });
   }
 }
