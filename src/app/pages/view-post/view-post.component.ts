@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {ApiService} from "../../services/api.service";
 import {
@@ -70,6 +70,7 @@ export class ViewPostComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
     private authService: AuthService,
+    private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -129,7 +130,7 @@ export class ViewPostComponent implements OnInit, AfterViewInit {
   deletePost(id: string): void {
     this.apiService.deletePost(id).subscribe(() => {
       this.snackBar.open('Post deleted!', 'Close', { duration: 2000 });
-      // Redirect or update UI accordingly
+      this.router.navigate(['/post-explore']);
     });
   }
 

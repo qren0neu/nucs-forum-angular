@@ -20,17 +20,17 @@
     <div>
       <mat-form-field appearance="fill">
         <mat-label>Title</mat-label>
-        <input matInput formControlName="title">
+        <input matInput [formControl]="titleControl">
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Add a tag</mat-label>
-        <input matInput formControlName="tag" (keyup.enter)="addTag()">
+        <input matInput  [formControl]="tagControl" (keyup.enter)="addTag()">
       </mat-form-field>
 
       <div *ngFor="let tag of tags; let i = index">
         <mat-chip-listbox>
-          <mat-chip removable="true" (removed)="removeTag(i)">
+          <mat-chip removable="true" (removed)="removeTag(i)" (click)="removeTag(i)">
             {{ tag }}
             <mat-icon matChipRemove>cancel</mat-icon>
           </mat-chip>

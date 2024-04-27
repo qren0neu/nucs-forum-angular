@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {ApiService} from "../../services/api.service";
 import {MatChip, MatChipListbox} from "@angular/material/chips";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
@@ -41,12 +41,12 @@ export class EditorComponent {
   form: FormGroup;
   tags: string[] = [];
   modalOpen = false;
+  titleControl = new FormControl('Default Title');
+  tagControl = new FormControl('');
 
   constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
     this.form = this.fb.group({
       markdown: ['Type **anything** in the *Markdown* style:'],
-      title: [''],
-      tag: ['']
     });
   }
 
@@ -57,7 +57,7 @@ export class EditorComponent {
   submitPost(): void {
     this.modalOpen = false;
     this.apiService.createPost({
-      title: this.form.value.title,
+      title: this.titleControl.value!,
       tags: this.tags,
       content: this.form.value.markdown
     }).subscribe({
@@ -67,9 +67,9 @@ export class EditorComponent {
   }
 
   addTag(): void {
-    if (this.form.value.tag && !this.tags.includes(this.form.value.tag)) {
-      this.tags.push(this.form.value.tag);
-      this.form.patchValue({ tag: '' });
+    console.log(this.tagControl.value, this.tags);
+    if (this.tagControl.value && !this.tags.includes(this.tagControl.value)) {
+      this.tags.push(this.tagControl.value);
     }
   }
 
