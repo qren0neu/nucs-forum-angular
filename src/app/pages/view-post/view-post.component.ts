@@ -20,6 +20,7 @@ import {NsLayoutComponent} from "../../ns-layout/ns-layout.component";
 import {MatGridList} from "@angular/material/grid-list";
 import {MarkdownComponent} from "ngx-markdown";
 import {MatDivider} from "@angular/material/divider";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-view-post',
@@ -68,6 +69,7 @@ export class ViewPostComponent implements OnInit, AfterViewInit {
     private apiService: ApiService,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
+    private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
@@ -129,5 +131,14 @@ export class ViewPostComponent implements OnInit, AfterViewInit {
       this.snackBar.open('Post deleted!', 'Close', { duration: 2000 });
       // Redirect or update UI accordingly
     });
+  }
+
+  isAuthor() {
+    if (isPlatformBrowser(this.platformId)) {
+      const user = this.authService.getStoredCredentials();
+      const author = this.content.authorId;
+      return !!user && !!author && user.username == author;
+    }
+    return false;
   }
 }
