@@ -25,9 +25,10 @@ import {MatDivider} from "@angular/material/divider";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatSelect} from "@angular/material/select";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
 import {MatLine} from "@angular/material/core";
+import {ResetPasswordModalComponent} from "./reset-password-modal/reset-password-modal.component";
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import {MatLine} from "@angular/material/core";
         AccountUpdateComponent,
         MyPostComponent,
         HistoryComponent,
+        ResetPasswordModalComponent
     ],
     imports: [
         MatToolbar,
@@ -107,6 +109,7 @@ import {MatLine} from "@angular/material/core";
         MatListItem,
         MatLine,
         MatListSubheaderCssMatStyler,
+        ReactiveFormsModule,
     ],
     providers: [HttpClientModule],
     exports: [
@@ -118,6 +121,7 @@ import {MatLine} from "@angular/material/core";
         AccountUpdateComponent,
         MyPostComponent,
         HistoryComponent,
+        ResetPasswordModalComponent
     ],
     bootstrap: [HomeComponent]
 })

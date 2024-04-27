@@ -64,7 +64,14 @@
       <button mat-raised-button color="primary" type="submit" [disabled]="waiting || !form.valid">
         Update
       </button>
-      <button mat-button type="button">Reset Password</button>
+      <button mat-flat-button type="button" (click)="openResetPasswordModal()">Reset Password</button>
     </div>
   </form>
+
+
+  <app-reset-password-modal
+          [username]="user.username"
+          [open]="showResetPasswordModal"
+          (closed)="onResetPasswordModalClosed()"
+  ></app-reset-password-modal>
 </div>

@@ -1,37 +1,35 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit, PLATFORM_ID, TemplateRef, ViewChild} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material/dialog';
 import {ErrorStateMatcher} from '@angular/material/core';
 import {AuthService} from "../services/auth.service";
 import {ApiService} from "../services/api.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {isPlatformBrowser} from "@angular/common";
 
 @Component({
     selector: 'app-account-update',
     templateUrl: './account-update.component.html',
     styleUrls: ['./account-update.component.css']
 })
-export class AccountUpdateComponent implements OnInit {
-    user: any;
-    show = {pass: false, confPass: false};
+export class AccountUpdateComponent implements AfterViewInit {
+    form: FormGroup;
     error = '';
-    modalError = '';
     waiting = false;
-    formik: FormGroup;
-    formikReset: FormGroup;
+    user: any = {};
+    schools = ['Northeastern University'];
     campuses = ['Arlington', 'Boston', 'Burlington', 'Charlotte', 'London', 'Miami', 'Nahant', 'Oakland', 'Portland', 'Seattle', 'Silicon Valley', 'Toronto', 'Vancouver'];
-    matcher = new ErrorStateMatcher();
-    // resetPasswordModal = false;
-    @ViewChild('resetPasswordModal') resetPasswordModal: TemplateRef<any> | undefined;
+    showResetPasswordModal: boolean = false;
 
     constructor(
-        private userService: AuthService,
-        private apiService: ApiService,
-        private dialog: MatDialog,
         private fb: FormBuilder,
-        private router: Router
+        private apiService: ApiService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private authService: AuthService,
+        @Inject(PLATFORM_ID) private platformId: Object
     ) {
-        this.formik = this.fb.group({
+        this.form = this.fb.group({
             first: ['', Validators.required],
             last: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
@@ -39,96 +37,48 @@ export class AccountUpdateComponent implements OnInit {
             campus: [''],
             company: ['']
         });
+    }
 
-        this.formikReset = this.fb.group({
-            password: ['', Validators.required],
-            confPassword: ['',
-                Validators.required,
-                Validators.minLength(8),
-                Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
-            ]
+    ngAfterViewInit(): void {
+        if (isPlatformBrowser(this.platformId)) {
+            const cred = this.authService.getStoredCredentials();
+            if (cred) {
+                this.loadUser(cred.username);
+            }
+        }
+    }
+
+    loadUser(username: string): void {
+        this.apiService.getUser(username).subscribe({
+            next: (data) => {
+                this.user = data;
+                this.form.patchValue(data);
+            },
+            error: (err) => this.error = 'Failed to load user'
         });
     }
 
-    ngOnInit() {
-        this.user = this.userService.getStoredCredentials();
-        // this.formik.patchValue(this.user);
-        if (this.user) {
-            this.apiService.getUser(this.user.username).subscribe({
+    onSubmit(): void {
+        if (this.form.valid) {
+            this.waiting = true;
+            this.apiService.updateUser(this.user.username, this.form.value).subscribe({
                 next: (data) => {
-                    this.user = data;
-                    this.formik.patchValue(data);
+                    // handle successful update
+                    this.waiting = false;
                 },
-                error: (err) => this.error = 'Failed to load user'
+                error: (err) => {
+                    this.error = 'Failed to update user';
+                    this.waiting = false;
+                }
             });
         }
     }
 
-    toggleShow(field: string) {
-        // @ts-ignore
-        this.show[field] = !this.show[field];
+    onResetPasswordModalClosed() {
+        this.showResetPasswordModal = false;
     }
 
-    openModal() {
-        if (this.resetPasswordModal) {
-            this.dialog.open(this.resetPasswordModal);
-        }
-    }
-
-    closeModal() {
-        this.dialog.closeAll();
-    }
-
-    resetPass(event: Event) {
-        event.preventDefault();
-        // if (Object.keys(this.formikReset.errors).length) {
-        //     console.error(this.formikReset.errors);
-        //     return false;
-        // }
-        // if (!Object.keys(this.formikReset.touched).length) {
-        //     console.log(this.formikReset.touched);
-        //     return false;
-        // }
-        const username = this.user.username;
-        this.apiService.resetPassword(username, this.formikReset.value).subscribe(
-            data => {
-                this.waiting = false;
-                this.userService.logout().subscribe(() => {
-                    this.router.navigate(['/'])
-                })
-            },
-            error => {
-                console.error(error);
-                this.modalError = error.error;
-            }
-        );
-    }
-
-    handleSubmit(event: Event) {
-        event.preventDefault();
-        console.log('submit');
-        const username = this.user.username;
-        this.apiService.updateUser(username, this.formik.value).subscribe(
-            data => {
-                this.waiting = false;
-                if (this.user.email !== this.formik.value.email) {
-                    this.userService.logout().subscribe(() => {
-                        this.router.navigate(['/'])
-                    })
-                } else {
-                    this.apiService.getUser(this.user.username).subscribe({
-                        next: (data) => {
-                            this.user = data;
-                            this.formik.patchValue(data);
-                        },
-                        error: (err) => this.error = 'Failed to load user'
-                    });
-                }
-            },
-            error => {
-                console.error(error);
-                this.error = error.error;
-            }
-        );
+    openResetPasswordModal() {
+        this.showResetPasswordModal = true;
     }
 }

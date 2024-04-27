@@ -10,6 +10,7 @@ import {ApiService} from "../../services/api.service";
 import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {filter} from "rxjs";
+import {AppModule} from "../../app.module";
 
 @Component({
   selector: 'app-admin-edit',
@@ -47,7 +48,8 @@ import {filter} from "rxjs";
     MatInput,
     MatInput,
     MatInput,
-    AsyncPipe
+    AsyncPipe,
+    AppModule
   ],
   templateUrl: './admin-edit.component.html',
   styleUrl: './admin-edit.component.css'
@@ -59,6 +61,7 @@ export class AdminEditComponent implements AfterViewInit {
   user: any = {};
   schools = ['Northeastern University'];
   campuses = ['Arlington', 'Boston', 'Burlington', 'Charlotte', 'London', 'Miami', 'Nahant', 'Oakland', 'Portland', 'Seattle', 'Silicon Valley', 'Toronto', 'Vancouver'];
+  showResetPasswordModal = false;
 
   constructor(
     private fb: FormBuilder,
@@ -118,5 +121,14 @@ export class AdminEditComponent implements AfterViewInit {
 
   isAdmin() {
     return this.authService.isAdmin();
+  }
+
+
+  onResetPasswordModalClosed() {
+    this.showResetPasswordModal = false;
+  }
+
+  openResetPasswordModal() {
+    this.showResetPasswordModal = true;
   }
 }
