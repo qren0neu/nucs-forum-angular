@@ -13,7 +13,7 @@ import {
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatIcon} from "@angular/material/icon";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {isPlatformBrowser, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, isPlatformBrowser, NgForOf, NgIf} from "@angular/common";
 import {MatAnchor, MatButton, MatIconButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
 import {NsLayoutComponent} from "../../ns-layout/ns-layout.component";
@@ -54,7 +54,8 @@ import {AuthService} from "../../services/auth.service";
     FormsModule,
     MarkdownComponent,
     NgForOf,
-    MatDivider
+    MatDivider,
+    AsyncPipe
   ],
 })
 export class ViewPostComponent implements OnInit, AfterViewInit {
@@ -173,5 +174,9 @@ export class ViewPostComponent implements OnInit, AfterViewInit {
       return !!user && !!author && user.username == author;
     }
     return false;
+  }
+
+  isAdmin() {
+    return this.authService.isAdmin();
   }
 }
