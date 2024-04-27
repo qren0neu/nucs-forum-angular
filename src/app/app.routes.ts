@@ -9,6 +9,7 @@ import {DashboardComponent} from "./pages/dashboard/dashboard.component";
 import {AllPageComponent} from "./pages/all-page/all-page.component";
 import {AdminEditComponent} from "./pages/admin-edit/admin-edit.component";
 import {EditorComponent} from "./pages/editor/editor.component";
+import {SearchPageComponent} from "./pages/serach-page/serach-page.component";
 
 export const routes: Routes = [
   { path: 'hello-world', component: HelloWorldComponent },
@@ -23,4 +24,5 @@ export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'all', component: AllPageComponent },
   { path: 'adminEdit', component: AdminEditComponent },
+  { path: 'search', component: SearchPageComponent },
 ];

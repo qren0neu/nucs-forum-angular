@@ -1,0 +1,29 @@
+<div class="grid-container">
+  <div class="grid-item">
+    <div class="stack">
+      <h2>Search Terms</h2>
+      <mat-form-field>
+        <mat-select [(value)]="filter" (selectionChange)="onFilterChange($event)">
+          <mat-option value="title">Title</mat-option>
+          <mat-option value="author">Author</mat-option>
+          <mat-option value="tags">Tags</mat-option>
+          <mat-option value="mine">My Post</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [(ngModel)]="search" (input)="onSearchChange($event)" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="lookForPosts()">Search</button>
+      <button mat-raised-button (click)="clearSearch()">Clear</button>
+    </div>
+  </div>
+  <div class="grid-item">
+    <h2>Result</h2>
+    <div class="stack">
+      <div *ngFor="let post of posts" class="post-item" (click)="goToPost(post.uuid)">
+        <div class="post-title">{{post.title}}</div>
+        <div class="post-author">{{post.author}}</div>
+      </div>
+    </div>
+  </div>
+</div>

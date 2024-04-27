@@ -110,4 +110,10 @@ export class ApiService {
       headers: this.makeHeader()
     })
   }
+
+  get(url: string) {
+    return this.http.get(url, {
+      headers: this.makeHeader()
+    });
+  }
 }
