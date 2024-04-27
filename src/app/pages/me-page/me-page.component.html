@@ -1,25 +1,31 @@
-<div class="grid-container">
-  <div class="grid-item">
-    <h2>Features</h2>
-    <mat-list>
-      <mat-list-item *ngFor="let feature of features">
-        <button mat-list-item (click)="setFeature(feature.label)">
-          <mat-icon mat-list-icon>{{feature.icon}}</mat-icon>
-          <div mat-line>{{feature.title}}</div>
-        </button>
-      </mat-list-item>
-    </mat-list>
-  </div>
-  <div class="grid-item">
-    <ng-container [ngSwitch]="feature">
-<!--      <app-account-update *ngSwitchCase="'account'"></app-account-update>-->
-      <app-follower *ngSwitchCase="'follow'" [props]="{target: 'from'}"></app-follower>
-      <app-follower *ngSwitchCase="'follower'" [props]="{target: 'to'}"></app-follower>
-      <my-post *ngSwitchCase="'post'"></my-post>
-      <history *ngSwitchCase="'history'"></history>
-      <save *ngSwitchCase="'save'"></save>
-      <like *ngSwitchCase="'like'"></like>
-<!--      <app-account-update *ngSwitchDefault></app-account-update>-->
-    </ng-container>
-  </div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="feature-list">
+                <h2>Features</h2>
+                <mat-list>
+                    <mat-list-item *ngFor="let feature of features">
+                        <button mat-list-item (click)="setFeature(feature.label)">
+                            <mat-icon mat-list-icon>{{feature.icon}}</mat-icon>
+                            <div mat-line>{{feature.title}}</div>
+                        </button>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="feature-panel">
+                <ng-container [ngSwitch]="feature">
+                    <!--      <app-account-update *ngSwitchCase="'account'"></app-account-update>-->
+                    <app-follower *ngSwitchCase="'follow'" [props]="{target: 'from'}"></app-follower>
+                    <app-follower *ngSwitchCase="'follower'" [props]="{target: 'to'}"></app-follower>
+                    <my-post *ngSwitchCase="'post'"></my-post>
+                    <history *ngSwitchCase="'history'"></history>
+                    <save *ngSwitchCase="'save'"></save>
+                    <like *ngSwitchCase="'like'"></like>
+                    <!--      <app-account-update *ngSwitchDefault></app-account-update>-->
+                </ng-container>
+            </div>
+        </div>
+    </div>
 </div>

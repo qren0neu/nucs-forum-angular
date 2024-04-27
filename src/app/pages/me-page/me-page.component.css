@@ -1,59 +1,44 @@
-/* me-page.component.css */
-
 .container {
-    padding: 24px;
-}
-
-.header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 24px;
+    height: 100%;
+    width: 100%;
+    flex-direction: row;
 }
 
-.header h1 {
-    font-size: 24px;
-    font-weight: bold;
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
-.header button {
-    margin-left: 16px;
+.col-sm-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
 }
 
-.content {
-    margin-top: 24px;
+.col-sm-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
 }
 
-.feature-container {
-    margin-bottom: 24px;
-}
-
-.feature-container h2 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 16px;
-}
-
-.feature-container .feature-content {
+.feature-list {
     padding: 16px;
-    background-color: #f5f5f5;
-    border-radius: 4px;
 }
 
-.feature-container app-account-update,
-.feature-container app-follower,
-.feature-container app-my-post,
-.feature-container app-history,
-.feature-container app-save,
-.feature-container app-like {
+.feature-list h2 {
     margin-bottom: 16px;
 }
 
-.footer {
-    margin-top: 24px;
-    text-align: center;
+.feature-list .mat-list-item {
+    cursor: pointer;
 }
 
-.footer button {
-    margin: 0 8px;
+.feature-panel {
+    padding: 16px;
+}
+
+button {
+    background-color: #007BFF; /* A nice shade of blue */
+    display: flex;
+    flex-direction: row;
 }
