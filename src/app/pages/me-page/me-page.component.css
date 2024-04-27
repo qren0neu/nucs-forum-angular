@@ -1,0 +1,59 @@
+/* me-page.component.css */
+
+.container {
+    padding: 24px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header button {
+    margin-left: 16px;
+}
+
+.content {
+    margin-top: 24px;
+}
+
+.feature-container {
+    margin-bottom: 24px;
+}
+
+.feature-container h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.feature-container .feature-content {
+    padding: 16px;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.feature-container app-account-update,
+.feature-container app-follower,
+.feature-container app-my-post,
+.feature-container app-history,
+.feature-container app-save,
+.feature-container app-like {
+    margin-bottom: 16px;
+}
+
+.footer {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.footer button {
+    margin: 0 8px;
+}

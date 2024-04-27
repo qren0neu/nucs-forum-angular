@@ -1,0 +1,78 @@
+<div class="container">
+    <h1>Account Update</h1>
+    <form (ngSubmit)="handleSubmit($event)" novalidate>
+        <div class="form-grid">
+            <mat-form-field>
+                <mat-label>First Name</mat-label>
+                <input matInput id="first" [(ngModel)]="formik.value.first" [errorStateMatcher]="matcher">
+                <!--        <mat-error *ngIf="formik.errors.first && formik.touched.first">{{formik.errors.first}}</mat-error>-->
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input matInput id="last" [(ngModel)]="formik.value.last" [errorStateMatcher]="matcher">
+                <!--        <mat-error *ngIf="formik.errors.last && formik.touched.last">{{formik.errors.last}}</mat-error>-->
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Email Address</mat-label>
+                <input matInput id="email" [(ngModel)]="formik.value['email']" [errorStateMatcher]="matcher">
+                <!--        <mat-error *ngIf="formik.errors.email && formik.touched.email">{{formik.errors.email}}</mat-error>-->
+            </mat-form-field>
+            <div class="note">* You may have to login again if you change your email or password</div>
+            <mat-form-field>
+                <mat-label>School</mat-label>
+                <mat-select id="school" name="school" [(ngModel)]="formik.value['school']"
+                            [errorStateMatcher]="matcher">
+                    <mat-option value="">No Selected</mat-option>
+                    <mat-option value="Northeastern University">Northeastern University</mat-option>
+                </mat-select>
+                <!--        <mat-error *ngIf="formik.errors.school && formik.touched.school">{{formik.errors.school}}</mat-error>-->
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Campus</mat-label>
+                <mat-select id="campus" name="campus" [(ngModel)]="formik.value['campus']"
+                            [errorStateMatcher]="matcher">
+                    <mat-option value="">No Selected</mat-option>
+                    <mat-option *ngFor="let campus of campuses" [value]="campus">{{campus}}</mat-option>
+                </mat-select>
+                <!--        <mat-error *ngIf="formik.errors.campus && formik.touched.campus">{{formik.errors.campus}}</mat-error>-->
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Company</mat-label>
+                <input matInput id="company" [(ngModel)]="formik.value['company']" [errorStateMatcher]="matcher">
+                <!--        <mat-error *ngIf="formik.errors.company && formik.touched.company">{{formik.errors.company}}</mat-error>-->
+            </mat-form-field>
+        </div>
+        <div class="error" *ngIf="error">{{error}}</div>
+        <button mat-raised-button color="primary" type="submit" [disabled]="waiting ">Update</button>
+        <button mat-button color="grey" type="button" (click)="openModal()">Reset Password</button>
+    </form>
+</div>
+
+<ng-template #resetPasswordModal>
+    <div class="modal-content">
+        <h2>Reset Password</h2>
+        <div>Note: You need to login again after you changed your pass</div>
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput id="password" [(ngModel)]="formikReset.value.password" [errorStateMatcher]="matcher">
+            <!--      <input matInput id="password" [(ngModel)]="formikReset.value.password" (ngModelChange)="formikReset.handleChange($event)" (blur)="formikReset.handleBlur('password')" [type]="show.pass ? 'text' : 'password'" [errorStateMatcher]="matcher">-->
+            <button mat-icon-button matSuffix (click)="toggleShow('pass')">
+                <mat-icon>{{show.pass ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <!--      <mat-error *ngIf="formikReset.errors.password && formikReset.touched.password">{{formikReset.errors.password}}</mat-error>-->
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Confirm Password</mat-label>
+            <input matInput id="confPassword" [(ngModel)]="formikReset.value['confPassword']"
+                   [errorStateMatcher]="matcher">
+            <!--      <input matInput id="confPassword" [(ngModel)]="formikReset.values.confPassword" (ngModelChange)="formikReset.handleChange($event)" (blur)="formikReset.handleBlur('confPassword')" [type]="show.confPass ? 'text' : 'password'" [errorStateMatcher]="matcher">-->
+            <button mat-icon-button matSuffix (click)="toggleShow('confPass')">
+                <mat-icon>{{show.confPass ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <!--      <mat-error *ngIf="formikReset.errors.confPassword && formikReset.touched.confPassword">{{formikReset.errors.confPassword}}</mat-error>-->
+        </mat-form-field>
+        <div class="error" *ngIf="modalError">{{modalError}}</div>
+        <button mat-raised-button color="primary" (click)="resetPass($event)">Confirm</button>
+        <button mat-button color="grey" (click)="closeModal()">Cancel</button>
+    </div>
+</ng-template>

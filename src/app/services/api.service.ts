@@ -116,4 +116,17 @@ export class ApiService {
       headers: this.makeHeader()
     });
   }
+
+  getFollowTarget(target: string): Observable<any[]> {
+    return this.http.get<any[]>(`${Constants.API_BASE}/follow/mine?target=${target}`, {
+      headers: this.makeHeader()
+    });
+  }
+
+
+  resetPassword(username: string, data: any): Observable<any> {
+    return this.http.put(`${Constants.API_BASE}/user/${username}`, data, {
+      headers: this.makeHeader()
+    });
+  }
 }
