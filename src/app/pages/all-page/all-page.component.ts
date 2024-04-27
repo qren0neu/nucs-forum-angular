@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {ApiService} from "../../services/api.service";
 import {AuthService} from "../../services/auth.service";
-import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, isPlatformBrowser, NgForOf, NgIf} from "@angular/common";
 import {
   MatCell,
   MatCellDef,
@@ -49,11 +49,15 @@ export class AllPageComponent implements OnInit {
   user: any; // Adjust based on how you manage user authentication and data
   displayedColumns: string[] = ['first', 'last', 'email', 'school', 'campus', 'company', 'action'];
 
-  constructor(private userService: ApiService, private authService: AuthService) { }
+  constructor(private userService: ApiService,
+              private authService: AuthService,
+              @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit(): void {
     this.checkUser();
-    this.loadAllUsers();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadAllUsers();
+    }
   }
 
   checkUser() {

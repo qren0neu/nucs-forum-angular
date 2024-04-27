@@ -154,7 +154,13 @@ export class ApiService {
   }
 
   getMySaves() {
-    return this.http.get(`${Constants.API_BASE}/post/search?filter=mine`, {
+    return this.http.get(`${Constants.API_BASE}/save/mine?target=by`, {
+      headers: this.makeHeader()
+    })
+  }
+
+  getMyLikes() {
+    return this.http.get(`${Constants.API_BASE}/like/mine?target=by`, {
       headers: this.makeHeader()
     })
   }

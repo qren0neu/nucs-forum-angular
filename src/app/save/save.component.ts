@@ -8,12 +8,13 @@ import {isPlatformBrowser} from "@angular/common";
   selector: 'save',
   template: `
     <div *ngIf="user">
-      <h2>List</h2>
-      <div *ngFor="let post of posts; let i = index">
-        <div *ngIf="post.extra" style="cursor: pointer;" (click)="goToPost(post.uuid)">
-          <span>{{ post.extra.title }}</span>
+      <div class="stack">
+        <h2>List</h2>
+        <div *ngFor="let post of posts; let i = index">
+          <div class="post-item" *ngIf="post.extra" style="cursor: pointer;" (click)="goToPost(post.uuid)">
+            <span class="post-title">{{ post.extra.title }}</span>
+          </div>
         </div>
-        <hr>
       </div>
     </div>
   `,
@@ -50,6 +51,7 @@ export class SaveComponent implements OnInit {
               return true;
             }
           });
+          console.log(data, this.posts)
         },
         error => {
           console.error('Error fetching saved posts:', error);

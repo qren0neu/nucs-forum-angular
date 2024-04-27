@@ -1,7 +1,65 @@
-import { Component } from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {AuthService} from "../services/auth.service";
+import {ApiService} from "../services/api.service";
+import {isPlatformBrowser} from "@angular/common";
 
 @Component({
   selector: 'like',
-  template: '<p>Like Component</p>'
+  template: `
+    <div *ngIf="user">
+      <div class="stack">
+        <h2>List</h2>
+        <div *ngFor="let post of posts; let i = index">
+          <div class="post-item" *ngIf="post.extra" style="cursor: pointer;" (click)="goToPost(post.uuid)">
+            <span class="post-title">{{ post.extra.title }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `,
+  styleUrls: ['./like.component.css']
 })
-export class LikeComponent {}
+export class LikeComponent implements OnInit{
+  user: any;
+  posts: any[] = [];
+
+  constructor(private http: HttpClient,
+              private authService: AuthService,
+              private apiService: ApiService,
+              @Inject(PLATFORM_ID) private platformId: Object) { }
+
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.user = this.authService.getStoredCredentials();
+      if (this.user) {
+        this.fetchPosts();
+      }
+    }
+  }
+
+  fetchPosts() {
+    this.apiService.getMyLikes().subscribe(
+        (data: any) => {
+          const seen = {};
+          this.posts = data.filter((item: any) => {
+            if (!item.extra || seen.hasOwnProperty(item.uuid)) {
+              return false;
+            } else {
+              // @ts-ignore
+              seen[item.uuid] = true;
+              return true;
+            }
+          });
+          console.log(data, this.posts)
+        },
+        error => {
+          console.error('Error fetching saved posts:', error);
+        }
+    );
+  }
+
+  goToPost(uuid: string) {
+    window.location.assign(`/post/${uuid}`);
+  }
+}
