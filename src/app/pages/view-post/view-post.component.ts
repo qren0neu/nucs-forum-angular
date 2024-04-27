@@ -134,6 +134,10 @@ export class ViewPostComponent implements OnInit, AfterViewInit {
     });
   }
 
+  editPost(id: string): void {
+    this.router.navigate([`/post/edit`], { queryParams: { id } });
+  }
+
   isAuthor() {
     if (isPlatformBrowser(this.platformId)) {
       const user = this.authService.getStoredCredentials();

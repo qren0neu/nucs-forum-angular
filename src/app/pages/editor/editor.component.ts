@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {ApiService} from "../../services/api.service";
 import {MatChip, MatChipListbox} from "@angular/material/chips";
@@ -7,7 +7,7 @@ import {MatIcon} from "@angular/material/icon";
 import {NgForOf, NgIf} from "@angular/common";
 import {MatButton} from "@angular/material/button";
 import {MatInput} from "@angular/material/input";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MarkdownComponent} from "ngx-markdown";
 
 @Component({
@@ -37,16 +37,36 @@ import {MarkdownComponent} from "ngx-markdown";
   templateUrl: './editor.component.html',
   styleUrl: './editor.component.css'
 })
-export class EditorComponent {
+export class EditorComponent implements AfterViewInit {
   form: FormGroup;
   tags: string[] = [];
   modalOpen = false;
   titleControl = new FormControl('Default Title');
   tagControl = new FormControl('');
 
-  constructor(private fb: FormBuilder, private apiService: ApiService, private router: Router) {
+  constructor(private fb: FormBuilder,
+              private route: ActivatedRoute,
+              private apiService: ApiService,
+              private router: Router) {
     this.form = this.fb.group({
       markdown: ['Type **anything** in the *Markdown* style:'],
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.route.queryParams.subscribe(params => {
+      const id = params['id'];
+      if (id) {
+        console.log('id!', id)
+        this.apiService.getPost(id).subscribe(data => {
+          console.log(data)
+          this.form.patchValue({
+            markdown: data.content
+          });
+          this.tags = data.tags;
+          this.titleControl.patchValue(data.title);
+        });
+      }
     });
   }
 
@@ -61,7 +81,7 @@ export class EditorComponent {
       tags: this.tags,
       content: this.form.value.markdown
     }).subscribe({
-      next: () => window.location.assign('/post/explore'),
+      next: () => window.location.assign('/post-explore'),
       error: () => alert('Save failed')
     });
   }
@@ -78,6 +98,6 @@ export class EditorComponent {
   }
 
   goBack() {
-      this.router.navigate(['/post-explore'])
+    this.router.navigate(['/post-explore'])
   }
 }

@@ -12,6 +12,7 @@
     <button mat-button (click)="savePost(content.uuid)"
             [color]="saved ? 'accent' : 'primary'">{{saved ? 'Saved' : 'Save'}}</button>
     <button *ngIf="isAuthor()" mat-button (click)="deletePost(content.uuid)" style="color: black">Delete</button>
+    <button *ngIf="isAuthor()" mat-button (click)="editPost(content.uuid)" style="color: black">Edit</button>
   </mat-card-actions>
 </mat-card>
 <ng-container *ngFor="let comment of comments">
