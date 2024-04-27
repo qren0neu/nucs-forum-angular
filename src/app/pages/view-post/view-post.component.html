@@ -11,7 +11,7 @@
             [color]="liked ? 'warn' : 'primary'">{{liked ? 'Liked' : 'Like'}}</button>
     <button mat-button (click)="savePost(content.uuid)"
             [color]="saved ? 'accent' : 'primary'">{{saved ? 'Saved' : 'Save'}}</button>
-    <button mat-button (click)="deletePost(content.uuid)">Delete</button>
+    <button mat-button (click)="deletePost(content.uuid)" style="color: black">Delete</button>
   </mat-card-actions>
 </mat-card>
 <ng-container *ngFor="let comment of comments">

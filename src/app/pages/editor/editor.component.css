@@ -1,0 +1,44 @@
+.editor-container {
+  display: flex;
+  justify-content: space-between; /* Align items on opposite sides */
+  padding: 20px;
+  gap: 20px; /* Space between editor and preview */
+}
+
+.editor-form {
+  flex: 1 1 50%; /* Take up half the width */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+}
+
+.full-width {
+  width: 100%; /* Full width within its container */
+}
+
+.action-buttons {
+  margin-top: auto; /* Push buttons to the bottom */
+  display: flex;
+  justify-content: space-between; /* Space out buttons */
+}
+
+.markdown-preview {
+  flex: 1 1 50%; /* Take up half the width */
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  height: 100%; /* Full height */
+  overflow-y: auto; /* Scrollable if content is too long */
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 1000;
+}

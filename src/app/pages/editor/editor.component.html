@@ -1,0 +1,44 @@
+<div class="editor-container">
+  <form [formGroup]="form" class="editor-form">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Markdown Content</mat-label>
+      <textarea matInput formControlName="markdown"></textarea>
+    </mat-form-field>
+
+    <!-- Buttons aligned at the bottom -->
+    <div class="action-buttons">
+      <button mat-raised-button color="primary" (click)="savePost()">Save</button>
+      <button mat-button color="accent" (click)="goBack()">Back</button>
+    </div>
+  </form>
+
+  <!-- Markdown preview on the right -->
+  <markdown [data]="form.value['markdown']" class="markdown-preview"></markdown>
+
+  <!-- Modal for additional post info -->
+  <div *ngIf="modalOpen" class="modal">
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Add a tag</mat-label>
+        <input matInput formControlName="tag" (keyup.enter)="addTag()">
+      </mat-form-field>
+
+      <div *ngFor="let tag of tags; let i = index">
+        <mat-chip-listbox>
+          <mat-chip removable="true" (removed)="removeTag(i)">
+            {{ tag }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-listbox>
+      </div>
+
+      <button mat-raised-button color="primary" (click)="submitPost()">Submit</button>
+      <button mat-button (click)="modalOpen = false">Cancel</button>
+    </div>
+  </div>
+</div>

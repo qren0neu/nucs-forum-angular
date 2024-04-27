@@ -104,4 +104,10 @@ export class ApiService {
   updateUser(username: string, userData: any): Observable<any> {
     return this.http.put(`${Constants.API_BASE}/user/${username}`, userData, { headers: this.makeHeader() });
   }
+
+  createPost(postData: { title: string; tags: string[]; content: string }): Observable<any> {
+    return this.http.post(`${Constants.API_BASE}/post/whatever`, postData, {
+      headers: this.makeHeader()
+    })
+  }
 }
