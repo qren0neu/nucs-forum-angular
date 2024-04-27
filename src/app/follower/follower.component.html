@@ -4,7 +4,7 @@
     <div *ngFor="let follow of follows">
       <div class="follow-item">
         <div class="follow-name">{{follow.name}}</div>
-        <button mat-button color="grey" *ngIf="props.target === 'from'">Unfollow</button>
+        <button mat-button style="color: black" *ngIf="props.target === 'from'" (click)="followChange(follow.follower, follow.followee)">Unfollow</button>
       </div>
       <mat-divider style="border: 1px solid black"></mat-divider>
     </div>

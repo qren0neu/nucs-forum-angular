@@ -123,6 +123,17 @@ export class ApiService {
     });
   }
 
+  follow(from: string, to: string): Observable<any> {
+    return this.http.post(`${Constants.API_BASE}/follow/${to}`, {
+      from, to
+    }, {headers: this.makeHeader()})
+  }
+
+  findFollow(from: string, to: string): Observable<any> {
+    return this.http.post(`${Constants.API_BASE}/follow/find`, {
+      from, to
+    }, {headers: this.makeHeader()})
+  }
 
   resetPassword(username: string, data: any): Observable<any> {
     return this.http.put(`${Constants.API_BASE}/user/${username}`, data, {

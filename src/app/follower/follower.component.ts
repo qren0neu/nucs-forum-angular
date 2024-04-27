@@ -27,4 +27,12 @@ export class FollowerComponent implements OnInit {
       }
     );
   }
+
+  followChange(from: string, to: string) {
+    this.apiService.follow(from, to).subscribe(
+        (data: any) => {
+          this.fetchFollows()
+        }
+    )
+  }
 }

@@ -64,6 +64,7 @@ export class ViewPostComponent implements OnInit, AfterViewInit {
   liked = false;
   saved = false;
   myComment = '';
+  followed = false;
 
   constructor(
     private apiService: ApiService,
@@ -125,6 +126,33 @@ export class ViewPostComponent implements OnInit, AfterViewInit {
       this.saved = data && data.by
     });
     this.apiService.viewPost(id).subscribe(() => {});
+    const cred = this.authService.getStoredCredentials();
+    if (cred) {
+      this.apiService.findFollow(cred.username, this.content.authorId).subscribe(
+          (data) => {
+            this.followed = cred.username === data.follower;
+          }
+      )
+    }
+  }
+
+  follow() {
+    const cred = this.authService.getStoredCredentials();
+    if (cred) {
+      this.apiService.follow(cred.username, this.content.authorId).subscribe(
+          (data) => {
+            this.followed = !this.followed;
+          }
+      )
+    }
+  }
+
+  showFollow() {
+    const cred = this.authService.getStoredCredentials();
+    if (cred && this.content.authorId) {
+      return cred.username !== this.content.authorId;
+    }
+    return false;
   }
 
   deletePost(id: string): void {
