@@ -71,6 +71,10 @@
         <a mat-button href="/login" class="custom-link">Already have account? Login</a>
 
       </form>
+
+      <div *ngIf="authError">
+        Error: {{authError}}
+      </div>
     </mat-card-content>
   </mat-card>
 

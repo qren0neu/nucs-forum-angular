@@ -83,6 +83,10 @@ export class SignUpComponent implements OnInit {
   onSubmit(): void {
     if (this.signUpForm.valid) {
       console.log(this.signUpForm.value);
+      if (this.signUpForm.value.confPassword !== this.signUpForm.value.password) {
+        this.authError = 'password mismatch';
+        return;
+      }
       // Implement your API call logic here
       this.authService.handleCreateAccountWithCredentials(this.signUpForm.value)
         .then(data => {
@@ -98,14 +102,18 @@ export class SignUpComponent implements OnInit {
                   if (val) {
                     this.router.navigate(['/post-explore'])
                   } else {
-                    this.authError = 'Your email or password is not correct'
+                    this.authError = 'failed'
                   }
                 },
-                error: (err) => this.authError = 'sign up failed'
+                error: (err) => this.authError = 'failed'
               });
+            }).catch(() => {
+              this.authError ='failed'
             })
           }
-        })
+        }).catch((err) => {
+        this.authError = 'sign up failed';
+      })
     } else {
       window.alert('invalid!')
     }
