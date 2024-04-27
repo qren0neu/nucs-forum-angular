@@ -45,7 +45,8 @@ export class ApiService {
   }
 
   viewPost(id: string): Observable<any> {
-    return this.http.post(`${Constants.API_BASE}/view/${id}`, {headers: this.makeHeader()});
+    console.log('bbbbb', this.makeHeader())
+    return this.http.post(`${Constants.API_BASE}/view/${id}`, {}, {headers: this.makeHeader()});
   }
 
   savePost(id: string): Observable<any> {
