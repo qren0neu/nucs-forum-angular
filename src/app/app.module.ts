@@ -29,6 +29,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
 import {MatLine} from "@angular/material/core";
 import {ResetPasswordModalComponent} from "./reset-password-modal/reset-password-modal.component";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 
 
 @NgModule({
@@ -110,6 +111,9 @@ import {ResetPasswordModalComponent} from "./reset-password-modal/reset-password
         MatLine,
         MatListSubheaderCssMatStyler,
         ReactiveFormsModule,
+        MatMenuItem,
+        MatMenu,
+        MatMenuTrigger,
     ],
     providers: [HttpClientModule],
     exports: [

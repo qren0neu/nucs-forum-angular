@@ -38,4 +38,16 @@ export class ExplorePageComponent implements OnInit {
   hasSession() {
     return this.authService.hasSession();
   }
+
+  sortPosts(sort: string) {
+    this.http.get(`${Constants.API_BASE}/post/all?sort=${sort}`)
+        .subscribe(
+            (data: any) => {
+              this.posts = data;
+            },
+            (err) => {
+              console.error(err);
+            }
+        );
+  }
 }

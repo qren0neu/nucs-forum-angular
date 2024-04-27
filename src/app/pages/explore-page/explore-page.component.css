@@ -60,3 +60,10 @@ mat-chip-listbox {
   bottom: 32px;
   z-index: 1000;
 }
+
+.sort-fab {
+  position: fixed;
+  right: 144px;
+  bottom: 32px;
+  z-index: 1000;
+}

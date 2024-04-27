@@ -18,4 +18,18 @@
   <button mat-fab color="primary" class="new-post-fab" (click)="navigateToNewPost()" *ngIf="hasSession() | async">
     <mat-icon>edit</mat-icon>
   </button>
+  <!-- Sorting FAB -->
+  <button mat-fab color="primary" class="sort-fab" [matMenuTriggerFor]="sortMenu">
+    <mat-icon>sort</mat-icon>
+  </button>
+  <mat-menu #sortMenu="matMenu">
+    <button mat-menu-item (click)="sortPosts('name')">
+      <mat-icon>visibility</mat-icon>
+      <span>Order by name</span>
+    </button>
+    <button mat-menu-item (click)="sortPosts('new')">
+      <mat-icon>new_releases</mat-icon>
+      <span>Order by new</span>
+    </button>
+  </mat-menu>
 </div>
