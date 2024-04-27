@@ -30,8 +30,8 @@ export class AccountUpdateComponent implements AfterViewInit {
         @Inject(PLATFORM_ID) private platformId: Object
     ) {
         this.form = this.fb.group({
-            first: ['', Validators.required],
-            last: ['', Validators.required],
+            first: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]*$/)]],
+            last: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]*$/)]],
             email: ['', [Validators.required, Validators.email]],
             school: [''],
             campus: [''],
@@ -75,6 +75,8 @@ export class AccountUpdateComponent implements AfterViewInit {
                     this.waiting = false;
                 }
             });
+        } else {
+            window.alert('invalid!')
         }
     }
 

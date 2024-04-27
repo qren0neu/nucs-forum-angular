@@ -54,8 +54,8 @@ export class SignUpComponent implements OnInit {
     private router: Router
   ) {
     this.signUpForm = this.fb.group({
-      first: ['', Validators.required],
-      last: ['', Validators.required],
+      first: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]*$/)]],
+      last: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]*$/)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confPassword: ['', Validators.required],
@@ -106,6 +106,8 @@ export class SignUpComponent implements OnInit {
             })
           }
         })
+    } else {
+      window.alert('invalid!')
     }
   }
 }

@@ -72,8 +72,9 @@ export class ResetPasswordModalComponent {
               private router: Router) {
   }
 
-  passwordControl = new FormControl('', [Validators.required]);
-  confirmPasswordControl = new FormControl('', [Validators.required]);
+  passwordControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  confirmPasswordControl = new FormControl('', [Validators.required,
+    Validators.minLength(8) ]);
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
   modalError: string = '';
@@ -89,6 +90,9 @@ export class ResetPasswordModalComponent {
   getPasswordErrorMessage() {
     if (this.passwordControl.hasError('required')) {
       return 'Password is required';
+    }
+    if (this.passwordControl.hasError('length')) {
+      return ' too short';
     }
     return '';
   }
