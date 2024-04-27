@@ -38,7 +38,8 @@
 }
 
 button {
-    background-color: #007BFF; /* A nice shade of blue */
     display: flex;
     flex-direction: row;
+    min-width: 128px;
+    justify-content: start;
 }

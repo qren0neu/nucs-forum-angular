@@ -5,7 +5,7 @@
                 <h2>Features</h2>
                 <mat-list>
                     <mat-list-item *ngFor="let feature of features">
-                        <button mat-list-item (click)="setFeature(feature.label)">
+                        <button mat-raised-button color="primary" (click)="setFeature(feature.label)">
                             <mat-icon mat-list-icon>{{feature.icon}}</mat-icon>
                             <div mat-line>{{feature.title}}</div>
                         </button>

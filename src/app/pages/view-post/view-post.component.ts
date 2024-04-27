@@ -84,6 +84,14 @@ export class ViewPostComponent implements OnInit, AfterViewInit {
       const id = this.route.snapshot.paramMap.get('id');
       if (id) {
         this.apiService.getPost(id).subscribe(data => {
+          if (null == data) {
+            this.snackBar.open('sorry, the content you find does not exist..', 'Close', {duration: 4000});
+
+            this.content = {};
+            this.markdown = 'sorry, the content you find does not exist..';
+            // this.snackBar.open('Like toggled!', 'Close', { duration: 2000 });
+            return;
+          }
           this.content = data;
           this.markdown = data.content;
           // Load comments
@@ -178,5 +186,16 @@ export class ViewPostComponent implements OnInit, AfterViewInit {
 
   isAdmin() {
     return this.authService.isAdmin();
+  }
+
+  back() {
+    // const last = this.router.lastSuccessfulNavigation;
+    // if (last) {
+    //   console.log(last)
+    //   this.router.navigate([last.finalUrl])
+    // } else {
+    //   this.router.navigate(['/post-explore'])
+    // }
+    this.router.navigate(['/post-explore']);
   }
 }

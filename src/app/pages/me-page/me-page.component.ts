@@ -6,6 +6,7 @@ import {MatLine} from "@angular/material/core";
 import {HistoryComponent} from "../../history/history.component";
 import {AccountUpdateComponent} from "../../account-update/account-update.component";
 import {AppModule} from "../../app.module";
+import {MatButton} from "@angular/material/button";
 
 @Component({
     selector: 'app-me-page',
@@ -19,7 +20,8 @@ import {AppModule} from "../../app.module";
         MatLine,
         AppModule,
         NgSwitchCase,
-        NgSwitchDefault
+        NgSwitchDefault,
+        MatButton
     ],
     templateUrl: './me-page.component.html',
     styleUrl: './me-page.component.css'

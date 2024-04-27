@@ -140,4 +140,10 @@ export class ApiService {
       headers: this.makeHeader()
     });
   }
+
+  getViewHistory(): Observable<any> {
+    return this.http.get(`${Constants.API_BASE}/view/mine?target=by`, {
+      headers: this.makeHeader()
+    })
+  }
 }

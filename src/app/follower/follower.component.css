@@ -6,10 +6,10 @@
   gap: 20px;
 }
 
-h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
+/*h2 {*/
+/*  font-size: 24px;*/
+/*  margin-bottom: 10px;*/
+/*}*/
 
 .follow-item {
   display: flex;
@@ -23,10 +23,36 @@ h2 {
 }
 
 button {
-  margin-left: 10px;
+  /*margin-left: 10px;*/
 }
 
 mat-divider {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+/* ============== */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.post-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  /*cursor: pointer;*/
+}
+
+.post-title {
+  font-weight: bold;
+}
+/* ============== */

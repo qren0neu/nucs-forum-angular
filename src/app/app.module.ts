@@ -4,7 +4,7 @@ import {MatToolbar} from "@angular/material/toolbar";
 import {MatIcon} from "@angular/material/icon";
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {MatButton, MatFabButton, MatIconButton} from "@angular/material/button";
-import {MatList} from "@angular/material/list";
+import {MatList, MatListItem, MatListSubheaderCssMatStyler} from "@angular/material/list";
 import {HomeComponent} from "./home/home.component";
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {NsLayoutComponent} from "./ns-layout/ns-layout.component";
@@ -27,6 +27,7 @@ import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatSelect} from "@angular/material/select";
 import {FormsModule} from "@angular/forms";
 import {MatInput} from "@angular/material/input";
+import {MatLine} from "@angular/material/core";
 
 
 @NgModule({
@@ -103,6 +104,9 @@ import {MatInput} from "@angular/material/input";
         MatInput,
         MatInput,
         MatInput,
+        MatListItem,
+        MatLine,
+        MatListSubheaderCssMatStyler,
     ],
     providers: [HttpClientModule],
     exports: [
