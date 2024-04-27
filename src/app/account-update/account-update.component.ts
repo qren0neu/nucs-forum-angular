@@ -43,7 +43,7 @@ export class AccountUpdateComponent implements AfterViewInit {
         if (isPlatformBrowser(this.platformId)) {
             const cred = this.authService.getStoredCredentials();
             if (cred) {
-                this.loadUser(cred.username);
+                this.loadUser(cred.email);
             }
         }
     }
@@ -65,6 +65,10 @@ export class AccountUpdateComponent implements AfterViewInit {
                 next: (data) => {
                     // handle successful update
                     this.waiting = false;
+                    if (this.form.value.email !== this.user.email) {
+                        this.authService.logout();
+                        this.router.navigate(['login']);
+                    }
                 },
                 error: (err) => {
                     this.error = 'Failed to update user';
