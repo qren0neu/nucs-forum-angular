@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Inject, Input, OnInit, PLATFORM_ID} from '@angular/core';
 import {ApiService} from "../services/api.service";
 import {AuthService} from "../services/auth.service";
+import {isPlatformBrowser} from "@angular/common";
 
 @Component({
   selector: 'app-follower',
@@ -12,11 +13,15 @@ export class FollowerComponent implements OnInit {
   user: any;
   follows: any[] = [];
 
-  constructor(private userService: AuthService, private apiService: ApiService) {}
+  constructor(private userService: AuthService,
+              private apiService: ApiService,
+              @Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
-    this.user = this.userService.getStoredCredentials();
-    this.fetchFollows();
+    if (isPlatformBrowser(this.platformId)) {
+      this.user = this.userService.getStoredCredentials();
+      this.fetchFollows();
+    }
   }
 
   fetchFollows() {

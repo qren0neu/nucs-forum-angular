@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 import {ApiService} from "../../services/api.service";
 import {AppModule} from "../../app.module";
-import {NgIf} from "@angular/common";
+import {isPlatformBrowser, NgIf} from "@angular/common";
 import {AuthService} from "../../services/auth.service";
 
 @Component({
@@ -21,10 +21,14 @@ export class DashboardComponent implements OnInit {
   likes: any;
   saves: any;
 
-  constructor(private apiService: ApiService, private authService: AuthService) {}
+  constructor(private apiService: ApiService,
+              private authService: AuthService,
+              @Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit(): void {
-    this.loadData();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadData();
+    }
   }
 
   loadData(): void {

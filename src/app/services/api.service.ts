@@ -146,4 +146,16 @@ export class ApiService {
       headers: this.makeHeader()
     })
   }
+
+  searchMyPosts() {
+    return this.http.get(`${Constants.API_BASE}/post/search?filter=mine`, {
+      headers: this.makeHeader()
+    })
+  }
+
+  getMySaves() {
+    return this.http.get(`${Constants.API_BASE}/post/search?filter=mine`, {
+      headers: this.makeHeader()
+    })
+  }
 }
